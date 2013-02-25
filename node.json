@@ -1,0 +1,67 @@
+{
+  "build-essential": {},
+  "users": [{
+    "username": "deploy",
+    "password": "supersecret", // EDIT THIS
+    "gid": 4000,
+    "uid": 4000
+  }],
+
+  "postgresql": {
+    "password": {
+      "postgres": "supersecret" // EDIT THIS
+    }
+  },
+
+  "groups": [{
+    "name": "deploy",
+    "gid": 4000
+  }],
+
+  "rbenv": {
+    "rubies": ["1.9.3-p286"],
+    "global": "1.9.3-p286",
+    "gems": {
+      "1.9.3-p286": [
+        {"name": "bundler"}
+      ]
+    }
+  },
+
+  "nginx": {
+    "version": "1.2.5",
+    "user": "deploy",
+    "init_style": "init",
+    "modules": [
+      "http_stub_status_module",
+      "http_ssl_module",
+      "http_gzip_static_module"
+    ],
+    "passenger": {
+      "version": "3.0.18"
+    },
+    "configure_flags": [
+      "--add-module=/var/lib/gems/1.9.1/gems/passenger-3.0.18/ext/nginx"
+    ],
+    "gzip_types": [
+      "text/plain",
+      "text/html",
+      "text/css",
+      "text/xml",
+      "text/javascript",
+      "application/json",
+      "application/x-javascript",
+      "application/xml",
+      "application/xml+rss"
+    ]
+  },
+
+  "authorization": {
+    "sudo": {
+      "users": ["deploy"],
+      "passwordless": true
+    }
+  },
+
+  "run_list": ["recipe[main]"]
+}
