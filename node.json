@@ -19,8 +19,8 @@
   }],
 
   "rvm": {
-    "rubies": ["1.9.3-p0"],
     "vagrant": { "system_chef_solo" : "/opt/ruby/bin/chef-solo" },
+    "rubies": ["1.9.3-p0"],
     "gems": {
       "1.9.3-p0": [
         {"name": "bundler"}
