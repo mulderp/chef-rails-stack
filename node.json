@@ -1,5 +1,4 @@
 {
-  "build-essential": {},
   "users": [{
     "username": "deploy",
     "password": "supersecret", // EDIT THIS
@@ -66,11 +65,11 @@
   "run_list": [
     "recipe[apt::default]",
     "recipe[build-essential]",
-    "recipe[curl]",
     "recipe[users]",
     "recipe[sudo]",
-    "recipe[rvm::vagrant]",
-    "recipe[rvm::system]",
+    "recipe[ruby_build]",
+    "recipe[rbenv::system]",
+    "recipe[rbenv::vagrant]",
     "recipe[nginx::passenger]",
     "recipe[nginx::source]",
     "recipe[postgresql::server]",
