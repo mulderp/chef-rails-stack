@@ -63,5 +63,21 @@
     }
   },
 
-  "run_list": ["recipe[main]"]
+  "run_list": [
+    "recipe[main]",
+    "recipe[apt]",
+    "recipe[build-essential]",
+    "recipe[curl]",
+    "recipe[ruby-shadow]",
+    "recipe[users]",
+    "recipe[sudo]",
+    "recipe[ruby_build]",
+    "recipe[rbenv::system]",
+    "recipe[rbenv::vagrant]",
+    "recipe[nginx::passenger]",
+    "recipe[nginx::source]",
+    "recipe[postgresql::server]",
+    "recipe[postgresql::client]",
+    "recipe[logrotate]"
+  ]
 }
