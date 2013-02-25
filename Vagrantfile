@@ -39,34 +39,89 @@ Vagrant::Config.run do |config|
   # folder, and the third is the path on the host to the actual folder.
   # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
-  # Enable provisioning with Puppet stand alone.  Puppet manifests
-  # are contained in a directory path relative to this Vagrantfile.
-  # You will need to create the manifests directory and a manifest in
-  # the file ubuntu-11.04.pp in the manifests_path directory.
-  #
-  # An example Puppet manifest to provision the message of the day:
-  #
-  # # group { "puppet":
-  # #   ensure => "present",
-  # # }
-  # #
-  # # File { owner => 0, group => 0, mode => 0644 }
-  # #
-  # # file { '/etc/motd':
-  # #   content => "Welcome to your Vagrant-built virtual machine!
-  # #               Managed by Puppet.\n"
-  # # }
-  #
-  # config.vm.provision :puppet do |puppet|
-  #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "ubuntu-11.04.pp"
-  # end
-
-  # Enable provisioning with chef solo, specifying a cookbooks path, roles
-  # path, and data_bags path (all relative to this Vagrantfile), and adding 
-  # some recipes and/or roles.
-  #
-  VAGRANT_JSON = MultiJson.load(Pathname(__FILE__).dirname.join('.', 'node.json').read)
+  VAGRANT_JSON = JSON.parse(%q${
+      "users": [
+        {
+          "username": "deploy",
+          "password": "supersecret",
+          "gid": 4000,
+          "uid": 4000
+        }
+      ],
+      "postgresql": {
+        "password": {
+          "postgres": "supersecret"
+        }
+      },
+      "groups": [
+        {
+          "name": "deploy",
+          "gid": 4000
+        }
+      ],
+      "rvm": {
+        "vagrant": {
+          "system_chef_solo": "/opt/ruby/bin/chef-solo"
+        },
+        "rubies": [
+          "1.9.3-p0"
+        ],
+        "gems": {
+          "1.9.3-p0": [
+            {
+              "name": "bundler"
+            }
+          ]
+        }
+      },
+      "nginx": {
+        "version": "1.2.5",
+        "user": "deploy",
+        "init_style": "init",
+        "modules": [
+          "http_stub_status_module",
+          "http_ssl_module",
+          "http_gzip_static_module"
+        ],
+        "passenger": {
+          "version": "3.0.18"
+        },
+        "configure_flags": [
+          "--add-module=/var/lib/gems/1.9.1/gems/passenger-3.0.18/ext/nginx"
+        ],
+        "gzip_types": [
+          "text/plain",
+          "text/html",
+          "text/css",
+          "text/xml",
+          "text/javascript",
+          "application/json",
+          "application/x-javascript",
+          "application/xml",
+          "application/xml+rss"
+        ]
+      },
+      "authorization": {
+        "sudo": {
+          "users": [
+            "deploy"
+          ],
+          "passwordless": true
+        }
+      },
+      "run_list": [
+        "recipe[apt::default]",
+        "recipe[build-essential]",
+        "recipe[users]",
+        "recipe[sudo]",
+        "recipe[rvm::vagrant]",
+        "recipe[rvm::system]",
+        "recipe[nginx::passenger]",
+        "recipe[nginx::source]",
+        "recipe[postgresql::server]",
+        "recipe[postgresql::client]"
+      ]
+    }$)
 
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks"]
