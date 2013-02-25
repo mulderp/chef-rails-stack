@@ -20,6 +20,7 @@
 
   "rvm": {
     "rubies": ["1.9.3-p0"],
+    "vagrant": { "system_chef_solo" : "/opt/ruby/bin/chef-solo" },
     "gems": {
       "1.9.3-p0": [
         {"name": "bundler"}
@@ -63,10 +64,9 @@
   },
 
   "run_list": [
-    "recipe[apt]",
+    "recipe[apt::default]",
     "recipe[build-essential]",
     "recipe[curl]",
-    "recipe[ruby-shadow]",
     "recipe[users]",
     "recipe[sudo]",
     "recipe[rvm::vagrant]",
@@ -74,7 +74,6 @@
     "recipe[nginx::passenger]",
     "recipe[nginx::source]",
     "recipe[postgresql::server]",
-    "recipe[postgresql::client]",
-    "recipe[logrotate]"
+    "recipe[postgresql::client]"
   ]
 }
