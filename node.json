@@ -18,7 +18,7 @@
     "gid": 4000
   }],
 
-  "rbenv": {
+  "rvm": {
     "rubies": ["1.9.3-p0"],
     "gems": {
       "1.9.3-p0": [
@@ -63,16 +63,14 @@
   },
 
   "run_list": [
-    "recipe[main]",
     "recipe[apt]",
     "recipe[build-essential]",
     "recipe[curl]",
     "recipe[ruby-shadow]",
     "recipe[users]",
     "recipe[sudo]",
-    "recipe[ruby_build]",
-    "recipe[rbenv::system]",
-    "recipe[rbenv::vagrant]",
+    "recipe[rvm::vagrant]",
+    "recipe[rvm::system]",
     "recipe[nginx::passenger]",
     "recipe[nginx::source]",
     "recipe[postgresql::server]",
