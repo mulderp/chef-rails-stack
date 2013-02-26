@@ -17,17 +17,6 @@
     "gid": 4000
   }],
 
-  "rbenv": {
-    "rubies": ["1.9.3-p0"],
-    "global": "1.9.3-p0",
-    "vagrant": { "system_chef_solo" : "/opt/ruby/bin/chef-solo" },
-    "gems": {
-      "1.9.3-p0": [
-        {"name": "bundler"}
-      ]
-    }
-  },
-
   "nginx": {
     "version": "1.2.5",
     "user": "deploy",
@@ -67,9 +56,7 @@
     "recipe[apt::default]",
     "recipe[build-essential]",
     "recipe[users]",
-    "recipe[ruby_build]",
-    "recipe[rbenv::system]",
-    "recipe[rbenv::vagrant]",
+    "recipe[ruby::default]",
     "recipe[nginx::passenger]",
     "recipe[nginx::source]",
     "recipe[postgresql::server]",
