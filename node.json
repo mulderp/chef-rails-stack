@@ -38,10 +38,11 @@
       "http_gzip_static_module"
     ],
     "passenger": {
-      "version": "3.0.18"
+      "version": "3.0.18",
+      "gem_binary": "/usr/local/rvm/wrappers/ruby-1.9.3-p0/gem"
     },
     "configure_flags": [
-      "--add-module=/var/lib/gems/1.9.1/gems/passenger-3.0.18/ext/nginx"
+      "--add-module=/usr/local/rvm/gems/ruby-1.9.3-p0/gems/passenger-3.0.18/ext/nginx"
     ],
     "gzip_types": [
       "text/plain",
@@ -68,9 +69,9 @@
     "recipe[build-essential]",
     "recipe[curl]",
     "recipe[users]",
-    "recipe[sudo]",
     "recipe[rvm::vagrant]",
     "recipe[rvm::system]",
+    "recipe[nginx::commons]",
     "recipe[nginx::passenger]",
     "recipe[nginx::source]",
     "recipe[postgresql::server]",
