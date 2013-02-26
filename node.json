@@ -1,5 +1,4 @@
 {
-  "build-essential": {},
   "users": [{
     "username": "deploy",
     "password": "supersecret", // EDIT THIS
@@ -20,10 +19,12 @@
 
   "rvm": {
     "rubies": ["1.9.3-p0"],
+    "default_ruby": "1.9.3-p0",
     "vagrant": { "system_chef_solo" : "/opt/ruby/bin/chef-solo" },
     "gems": {
       "1.9.3-p0": [
-        {"name": "bundler"}
+        {"name": "bundler"},
+        {"name": "rake"}
       ]
     }
   },
