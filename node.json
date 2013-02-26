@@ -17,8 +17,9 @@
     "gid": 4000
   }],
 
-  "rvm": {
+  "rbenv": {
     "rubies": ["1.9.3-p0"],
+    "global": "1.9.3-p0",
     "vagrant": { "system_chef_solo" : "/opt/ruby/bin/chef-solo" },
     "gems": {
       "1.9.3-p0": [
@@ -66,7 +67,6 @@
     "recipe[apt::default]",
     "recipe[build-essential]",
     "recipe[users]",
-    "recipe[sudo]",
     "recipe[ruby_build]",
     "recipe[rbenv::system]",
     "recipe[rbenv::vagrant]",
